@@ -75,8 +75,8 @@ TouchpadHandler.prototype.createTouchOverlay = function() {
   overlay.id = "nes-touch-overlay";
   overlay.style.cssText = `
     display: none;
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
     pointer-events: none;
     z-index: 9999;
     user-select: none;
@@ -88,82 +88,83 @@ TouchpadHandler.prototype.createTouchOverlay = function() {
     <!-- D-Pad Container (Bottom Left) -->
     <div id="touch-dpad" style="
       position: absolute;
-      bottom: 25px; left: 25px;
-      width: 160px; height: 160px;
+      bottom: 20px; left: 20px;
+      width: 140px; height: 140px;
       pointer-events: auto;
       touch-action: none;
     ">
       <div data-action="UP" class="touch-btn dpad-up" style="
-        position: absolute; top: 0; left: 53px; width: 54px; height: 54px;
-        background: rgba(255,255,255,0.15); border: 2px solid rgba(0,243,255,0.4);
-        border-radius: 8px 8px 0 0; display:flex; justify-center:center; align-items:center; color:#00f3ff; font-weight:bold; font-size:20px;
+        position: absolute; top: 0; left: 46px; width: 48px; height: 48px;
+        background: rgba(255,255,255,0.2); border: 2px solid rgba(0,243,255,0.6);
+        border-radius: 8px 8px 0 0; display:flex; justify-content:center; align-items:center; color:#00f3ff; font-weight:bold; font-size:18px;
       ">▲</div>
       <div data-action="DOWN" class="touch-btn dpad-down" style="
-        position: absolute; bottom: 0; left: 53px; width: 54px; height: 54px;
-        background: rgba(255,255,255,0.15); border: 2px solid rgba(0,243,255,0.4);
-        border-radius: 0 0 8px 8px; display:flex; justify-center:center; align-items:center; color:#00f3ff; font-weight:bold; font-size:20px;
+        position: absolute; bottom: 0; left: 46px; width: 48px; height: 48px;
+        background: rgba(255,255,255,0.2); border: 2px solid rgba(0,243,255,0.6);
+        border-radius: 0 0 8px 8px; display:flex; justify-content:center; align-items:center; color:#00f3ff; font-weight:bold; font-size:18px;
       ">▼</div>
       <div data-action="LEFT" class="touch-btn dpad-left" style="
-        position: absolute; top: 53px; left: 0; width: 54px; height: 54px;
-        background: rgba(255,255,255,0.15); border: 2px solid rgba(0,243,255,0.4);
-        border-radius: 8px 0 0 8px; display:flex; justify-center:center; align-items:center; color:#00f3ff; font-weight:bold; font-size:20px;
+        position: absolute; top: 46px; left: 0; width: 48px; height: 48px;
+        background: rgba(255,255,255,0.2); border: 2px solid rgba(0,243,255,0.6);
+        border-radius: 8px 0 0 8px; display:flex; justify-content:center; align-items:center; color:#00f3ff; font-weight:bold; font-size:18px;
       ">◀</div>
       <div data-action="RIGHT" class="touch-btn dpad-right" style="
-        position: absolute; top: 53px; right: 0; width: 54px; height: 54px;
-        background: rgba(255,255,255,0.15); border: 2px solid rgba(0,243,255,0.4);
-        border-radius: 0 8px 8px 0; display:flex; justify-center:center; align-items:center; color:#00f3ff; font-weight:bold; font-size:20px;
+        position: absolute; top: 46px; right: 0; width: 48px; height: 48px;
+        background: rgba(255,255,255,0.2); border: 2px solid rgba(0,243,255,0.6);
+        border-radius: 0 8px 8px 0; display:flex; justify-content:center; align-items:center; color:#00f3ff; font-weight:bold; font-size:18px;
       ">▶</div>
       <div style="
-        position: absolute; top: 53px; left: 53px; width: 54px; height: 54px;
-        background: rgba(20,20,35,0.8); border: 1px solid rgba(0,243,255,0.2);
+        position: absolute; top: 46px; left: 46px; width: 48px; height: 48px;
+        background: rgba(20,20,35,0.8); border: 1px solid rgba(0,243,255,0.3);
       "></div>
     </div>
 
     <!-- Action Buttons Container (Bottom Right) -->
     <div id="touch-actions" style="
       position: absolute;
-      bottom: 30px; right: 30px;
-      width: 170px; height: 150px;
+      bottom: 20px; right: 20px;
+      width: 150px; height: 130px;
       pointer-events: auto;
       touch-action: none;
     ">
       <!-- B Button -->
       <div data-action="B" class="touch-btn action-b" style="
-        position: absolute; bottom: 10px; left: 10px; width: 68px; height: 68px;
-        background: rgba(255,0,85,0.25); border: 2px solid #ff0055;
+        position: absolute; bottom: 5px; left: 5px; width: 60px; height: 60px;
+        background: rgba(255,0,85,0.35); border: 2px solid #ff0055;
         border-radius: 50%; display:flex; justify-content:center; align-items:center;
-        color:#fff; font-weight:bold; font-size:22px; box-shadow: 0 0 15px rgba(255,0,85,0.4);
+        color:#fff; font-weight:bold; font-size:20px; box-shadow: 0 0 15px rgba(255,0,85,0.5);
       ">B</div>
       <!-- A Button -->
       <div data-action="A" class="touch-btn action-a" style="
-        position: absolute; top: 10px; right: 10px; width: 68px; height: 68px;
-        background: rgba(0,243,255,0.25); border: 2px solid #00f3ff;
+        position: absolute; top: 5px; right: 5px; width: 60px; height: 60px;
+        background: rgba(0,243,255,0.35); border: 2px solid #00f3ff;
         border-radius: 50%; display:flex; justify-content:center; align-items:center;
-        color:#fff; font-weight:bold; font-size:22px; box-shadow: 0 0 15px rgba(0,243,255,0.4);
+        color:#fff; font-weight:bold; font-size:20px; box-shadow: 0 0 15px rgba(0,243,255,0.5);
       ">A</div>
     </div>
 
     <!-- Select / Start Container (Bottom Center) -->
     <div id="touch-center" style="
       position: absolute;
-      bottom: 20px; left: 50%;
+      bottom: 15px; left: 50%;
       transform: translateX(-50%);
-      display: flex; gap: 20px;
+      display: flex; gap: 15px;
       pointer-events: auto;
       touch-action: none;
     ">
       <div data-action="SELECT" class="touch-btn center-select" style="
-        padding: 8px 16px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
-        border-radius: 14px; color:#aaa; font-size:12px; font-weight:bold; text-transform:uppercase;
+        padding: 6px 12px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.4);
+        border-radius: 12px; color:#fff; font-size:11px; font-weight:bold; text-transform:uppercase;
       ">Select</div>
       <div data-action="START" class="touch-btn center-start" style="
-        padding: 8px 16px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
-        border-radius: 14px; color:#aaa; font-size:12px; font-weight:bold; text-transform:uppercase;
+        padding: 6px 12px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.4);
+        border-radius: 12px; color:#fff; font-size:11px; font-weight:bold; text-transform:uppercase;
       ">Start</div>
     </div>
   `;
 
-  document.body.appendChild(overlay);
+  let parent = document.querySelector(".screen-wrapper") || document.getElementById("tl") || document.body;
+  parent.appendChild(overlay);
 
   // Setup Multi-Touch Tracking
   const updateTouches = (e) => {
