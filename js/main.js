@@ -2,6 +2,7 @@
 let nes = new Nes();
 let audioHandler = new AudioHandler();
 let gamepadHandler = new GamepadHandler(() => nes);
+let keymapHandler = new KeymapHandler(() => nes);
 let paused = false;
 let loaded = false;
 let pausedInBg = false;
