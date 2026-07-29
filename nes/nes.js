@@ -194,8 +194,8 @@ function Nes() {
 
   this.runFrame = function() {
     do {
-      this.cycle()
-    } while(!(this.ppu.line === 240 && this.ppu.dot === 0));
+      this.cycle();
+    } while(!(this.ppu.line === 0 && this.ppu.dot === 0));
   }
 
   // peak

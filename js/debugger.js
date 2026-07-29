@@ -93,7 +93,7 @@ function Debugger(nes, ctx) {
       if(this.nes.ppu.line === this.updateLine && this.nes.ppu.dot === 0 && (this.frames & this.updateAnd) === 0) {
         this.updateDebugView();
       }
-    } while(!(this.nes.ppu.dot === 0 && this.nes.ppu.line === 240));
+    } while(!(this.nes.ppu.dot === 0 && this.nes.ppu.line === 0));
     return false;
   }
 

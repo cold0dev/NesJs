@@ -66,8 +66,13 @@ el("rom").onchange = function(e) {
   freader.readAsArrayBuffer(e.target.files[0]);
 }
 
+let fps = 60.09884;
+let frameInterval = 1000 / fps;
+let lastFrameTime = 0;
+
 el("pause").onclick = function(e) {
   if(paused && loaded) {
+    lastFrameTime = 0;
     loopId = requestAnimationFrame(update);
     audioHandler.start();
     paused = false;
@@ -114,6 +119,7 @@ document.onvisibilitychange = function(e) {
     }
   } else {
     if(pausedInBg && loaded) {
+      lastFrameTime = 0;
       el("pause").click();
       pausedInBg = false;
     }
@@ -123,6 +129,7 @@ document.onvisibilitychange = function(e) {
 function loadRom(rom) {
   if(player.loadNsf(rom)) {
     if(!loaded && !paused) {
+      lastFrameTime = 0;
       loopId = requestAnimationFrame(update);
       audioHandler.start();
     }
@@ -131,9 +138,20 @@ function loadRom(rom) {
   }
 }
 
-function update() {
-  runFrame();
+function update(timestamp) {
   loopId = requestAnimationFrame(update);
+  if(!lastFrameTime) {
+    lastFrameTime = timestamp;
+  }
+  let delta = timestamp - lastFrameTime;
+  if(delta >= frameInterval) {
+    if(delta > frameInterval * 5) {
+      lastFrameTime = timestamp;
+    } else {
+      lastFrameTime += frameInterval;
+    }
+    runFrame();
+  }
 }
 
 function runFrame() {

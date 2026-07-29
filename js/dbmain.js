@@ -138,6 +138,10 @@ window.onpagehide = function(e) {
   saveBatteryForRom();
 }
 
+let fps = 60.09884;
+let frameInterval = 1000 / fps;
+let lastFrameTime = 0;
+
 function loadRom(rom, name) {
   saveBatteryForRom();
   if(db.loadRom(rom)) {
@@ -149,6 +153,7 @@ function loadRom(rom, name) {
       log("Loaded battery");
     }
     if(!loaded && !paused) {
+      lastFrameTime = 0;
       loopId = requestAnimationFrame(update);
       audioHandler.start();
     }
@@ -187,6 +192,7 @@ function pause() {
 
 function unpause() {
   if(paused) {
+    lastFrameTime = 0;
     loopId = requestAnimationFrame(update);
     audioHandler.start();
     paused = false;
@@ -194,13 +200,23 @@ function unpause() {
   }
 }
 
-function update() {
-  let r = runFrame();
-  if(r) {
-    pause();
-    return;
-  }
+function update(timestamp) {
   loopId = requestAnimationFrame(update);
+  if(!lastFrameTime) {
+    lastFrameTime = timestamp;
+  }
+  let delta = timestamp - lastFrameTime;
+  if(delta >= frameInterval) {
+    if(delta > frameInterval * 5) {
+      lastFrameTime = timestamp;
+    } else {
+      lastFrameTime += frameInterval;
+    }
+    let r = runFrame();
+    if(r) {
+      pause();
+    }
+  }
 }
 
 function runFrame() {
