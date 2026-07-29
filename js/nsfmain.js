@@ -1,6 +1,7 @@
 
 let player = new NsfPlayer();
 let audioHandler = new AudioHandler();
+let gamepadHandler = new GamepadHandler(() => null);
 let paused = false;
 let loaded = false;
 let pausedInBg = false;
@@ -140,6 +141,7 @@ function loadRom(rom) {
 
 function update(timestamp) {
   loopId = requestAnimationFrame(update);
+  gamepadHandler.poll();
   if(!lastFrameTime) {
     lastFrameTime = timestamp;
   }

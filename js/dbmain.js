@@ -1,6 +1,7 @@
 
 let nes = new Nes();
 let audioHandler = new AudioHandler();
+let gamepadHandler = new GamepadHandler(() => db.nes);
 let paused = false;
 let loaded = false;
 let pausedInBg = false;
@@ -202,6 +203,7 @@ function unpause() {
 
 function update(timestamp) {
   loopId = requestAnimationFrame(update);
+  gamepadHandler.poll();
   if(!lastFrameTime) {
     lastFrameTime = timestamp;
   }
