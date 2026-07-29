@@ -173,6 +173,31 @@ body {
   box-shadow: 0 4px 15px rgba(255, 0, 85, 0.3);
 }
 
+.slot-select {
+  background: rgba(0, 243, 255, 0.08);
+  border: 1px solid rgba(0, 243, 255, 0.3);
+  color: var(--accent-cyan);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.slot-select:hover, .slot-select:focus {
+  background: rgba(0, 243, 255, 0.18);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 12px rgba(0, 243, 255, 0.25);
+}
+
+.slot-select option {
+  background: #16182e;
+  color: #fff;
+}
+
 /* Screen Frame */
 .viewport-card {
   position: relative;

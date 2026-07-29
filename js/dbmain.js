@@ -261,6 +261,52 @@ window.onkeydown = function(e) {
   }
 }
 
+function saveState() {
+  if (!loaded) {
+    log("No ROM loaded to save state");
+    return;
+  }
+  let slot = el("stateslot") ? el("stateslot").value : "1";
+  let state = db.nes.getState();
+  try {
+    let key = loadedName + "_savestate_slot_" + slot;
+    localStorage.setItem(key, JSON.stringify(state));
+    log("Saved state to Slot " + slot);
+  } catch (e) {
+    log("Failed to save state: " + e);
+  }
+}
+
+function loadState() {
+  if (!loaded) {
+    log("No ROM loaded to load state");
+    return;
+  }
+  let slot = el("stateslot") ? el("stateslot").value : "1";
+  let key = loadedName + "_savestate_slot_" + slot;
+  let data = localStorage.getItem(key);
+  if (!data && slot === "1") {
+    data = localStorage.getItem(loadedName + "_savestate");
+  }
+  if (data) {
+    try {
+      let obj = JSON.parse(data);
+      if (db.nes.setState(obj)) {
+        log("Loaded state from Slot " + slot);
+      } else {
+        log("Failed to load state (version/mapper mismatch)");
+      }
+    } catch (e) {
+      log("Error reading state: " + e);
+    }
+  } else {
+    log("No state saved in Slot " + slot);
+  }
+}
+
+if (el("savestate")) el("savestate").onclick = saveState;
+if (el("loadstate")) el("loadstate").onclick = loadState;
+
 window.onkeyup = function(e) {
   if(controlsP1[e.key.toLowerCase()] !== undefined) {
     db.nes.setButtonReleased(1, controlsP1[e.key.toLowerCase()]);
@@ -274,27 +320,11 @@ window.onkeyup = function(e) {
       e.preventDefault();
     }
   }
-  if(e.key.toLowerCase() === "m" && loaded) {
-    let saveState = db.nes.getState();
-    try {
-      localStorage.setItem(loadedName + "_savestate", JSON.stringify(saveState));
-      log("Saved state");
-    } catch(e) {
-      log("Failed to save state: " + e);
-    }
+  if(e.key.toLowerCase() === "m") {
+    saveState();
   }
-  if(e.key.toLowerCase() === "n" && loaded) {
-    let data = localStorage.getItem(loadedName + "_savestate");
-    if(data) {
-      let obj = JSON.parse(data);
-      if(db.nes.setState(obj)) {
-        log("Loaded state");
-      } else {
-        log("Failed to load state");
-      }
-    } else {
-      log("No state saved yet");
-    }
+  if(e.key.toLowerCase() === "n") {
+    loadState();
   }
 }
 
