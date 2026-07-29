@@ -161,6 +161,10 @@ function loadRom(rom, name) {
     }
     loaded = true;
     loadedName = name;
+    let labelText = el("file-label-text");
+    if(labelText) {
+      labelText.innerText = "Loaded: " + name;
+    }
   }
 }
 

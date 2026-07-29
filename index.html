@@ -1,22 +1,64 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="style.css">
-  <title>NesJS</title>
+  <title>NesJs - Web NES Emulator</title>
 </head>
 <body>
-  <input id="rom" type="file">
-  <button id="pause">Pause</button>
-  <button id="reset">Reset</button>
-  <button id="hardreset">Power cycle</button>
-  <button id="runframe">Run 1 frame</button>
-  <button id="mapcontroller">Map USB Controller</button><br>
-  <canvas id="output"></canvas>
-  <pre id="log"></pre>
-  <p>
-    NesJs, by angelo_wf. <a href="debug.html">Debugger</a>, <a href="nsfplayer.html">NsfJs</a>.<br>
-    Source on <a href="https://github.com/angelo-wf/NesJs">Github</a>.
-  </p>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo">
+        <span class="logo-icon">🎮</span>
+        <span class="logo-text">Nes<span class="accent">Js</span></span>
+      </div>
+      <div class="subtitle">High-Performance JavaScript NES Emulator</div>
+    </header>
+
+    <div class="controls-card">
+      <div class="file-upload-wrapper">
+        <label for="rom" class="custom-file-upload">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <span id="file-label-text">Choose ROM (.nes, .zip)</span>
+        </label>
+        <input id="rom" type="file" accept=".nes,.zip,.NES,.ZIP">
+      </div>
+
+      <div class="button-group">
+        <button id="pause" class="btn btn-primary"><span class="btn-icon">⏸</span> Pause</button>
+        <button id="reset" class="btn btn-secondary"><span class="btn-icon">🔄</span> Reset</button>
+        <button id="hardreset" class="btn btn-danger"><span class="btn-icon">⚡</span> Power Cycle</button>
+        <button id="runframe" class="btn btn-utility"><span class="btn-icon">⏭</span> Run 1 Frame</button>
+        <button id="mapcontroller" class="btn btn-accent"><span class="btn-icon">🎮</span> Map USB Controller</button>
+      </div>
+    </div>
+
+    <main class="viewport-card">
+      <div class="screen-wrapper">
+        <canvas id="output"></canvas>
+      </div>
+    </main>
+
+    <section class="console-card">
+      <div class="console-header">
+        <span class="console-title">System Log</span>
+      </div>
+      <pre id="log"></pre>
+    </section>
+
+    <footer class="app-footer">
+      <p>
+        NesJs, created by <strong>angelo_wf</strong> &bull; 
+        <a href="debug.html" class="footer-link">Debugger</a> &bull; 
+        <a href="nsfplayer.html" class="footer-link">NsfJs Player</a> &bull; 
+        Source on <a href="https://github.com/angelo-wf/NesJs" target="_blank" class="footer-link">GitHub</a>
+      </p>
+    </footer>
+  </div>
 
   <script src="lib/zip.js"></script>
   <script src="lib/inflate.js"></script>
